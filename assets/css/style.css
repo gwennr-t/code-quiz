@@ -5,18 +5,15 @@ body {
 }
 
 .timer-count {
-    border: 1px solid rgb(0, 255, 68);
     padding: 10px;
     color: #ff00ff;
 }
 
 nav {
-    border: 1px solid rgb(255, 0, 0);
     padding: 10px;
 }
 
 nav a {
-    border: 1px solid rgb(0, 255, 68);
     text-decoration: none;
     color: #ff00ff;
 }
@@ -28,13 +25,12 @@ nav a {
 }
 
 h1 {
-    border: 1px solid rgb(255, 166, 0);
     padding: 10px;
     text-align: center;
+    font-size: 200%;
 }
 
 p {
-    border: 1px solid rgb(255, 136, 0);
     padding: 10px 40px;
 }
 
