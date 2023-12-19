@@ -8,7 +8,7 @@ Code Quiz
 
 <h1>URL</h1>
 
-
+https://gwennr-t.github.io/code-quiz/ 
 
 <h1>Screenshots</h1>
 
