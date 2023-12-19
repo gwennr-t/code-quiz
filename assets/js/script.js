@@ -43,76 +43,39 @@ var timeInterval = 0;
 
 // function to start the quiz when the button is clicked
 function startQuiz() {
-    timerCount = 10;
+    timerCount = 60;
     startTimer();
 }
 startButton.addEventListener('click', startQuiz)
-    if (timeInterval === 0) {
+    
+if (timeInterval === 0) {
         timeInterval = setInterval(function() {
             timerCount--;
             timerElement.textContent = 'Timer: ' + timerCount; 
             
             if(timerCount <= 0) {
                 clearInterval(timeInterval);
-                endQuiz()
+                endQuiz();
             }
         }, 1000);
-    }
-// just added in v !!!
+} 
+
+startButton.addEventListener('click', quizQuestions)
+
 function quizQuestions(questionIndex) {
     container.innerHTML = '';
-    
-    var showQuestion = document.createElement('h2');
 
-    for (var i = 0; i < questions; i++) {
-        showQuestion.innerhtml = questions[questionIndex].question;
-        var  showChoices = questions[questionIndex].choices;
-        container.appendChild(showQuestion);
-    }
-
-    createUl.innerHTML = '';
-
-    showChoices.forEach(function(newItem) {
-        var listItem = document.createElement('li');
-        listItem.innerHTML += '<button>' + newItem + '</button>';
-
-        container.appendChild(createUl);
-        createUl.appendChild(listItem);
-
-        listItem.addEventListener('click');
-    });
 }
 
-// just added ^ !!!
+function endQuiz() {
+    if(timerCount === 0) {
+        var timeDone = document.createElement('h1');
+        timeDone.textContent = ('Your time is up! Final Score: ');
+        timeDone.appendChild(timeDone);
+        timeDone.addEventListener(timer === 0);
 
-
-// function endQuiz() {
-//     if(timerCount === 0) {
-//         var timeDone = document.querySelector('h1');
-//         timeDone.textContent = ('Your time is up!');
-//         timeDone.appendChild(timeDone);
-
-//         timeDone.addEventListener(timer === 0);
-
-//         var finalScore = document.querySelector('p');
-//         finalScore.textContent = ('Final Score: ' + score);
-//         finalScore.appendChild(finalScore);
-
-//         finalScore.addEventListener(timer === 0);
-
-//     }else{
-//            score = 0; 
-//            var noTime = document.createElement('h2');
-//            noTime.textContent = ('Times up!');
-//            container.appendChild(noTime);
-
-//         var finalScore = document.querySelector('p');
-//         finalScore.textContent = ('Final Score: ' + score);
-//         finalScore.appendChild(finalScore);
-
-//         finalScore.addEventListener(timer === 0);
-//     }
-// }
+    }
+}
 
 // score calculation and print to page
 
