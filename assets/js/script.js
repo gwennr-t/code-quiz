@@ -60,6 +60,7 @@ if (timeInterval === 0) {
         }, 1000);
 } 
 
+// create function to call questions and answer choices 
 startButton.addEventListener('click', quizQuestions)
 
 function quizQuestions(questionIndex) {
