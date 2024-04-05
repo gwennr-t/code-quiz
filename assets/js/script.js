@@ -1,12 +1,10 @@
-// variables for functions:
-var container = document.querySelector('.container');
-var startButton = document.querySelector('.start-button');
-
-var score = 0;
-var minus = 10;
+const timerElement = document.querySelector("#timer-count");
+const startButton = document.querySelector("#start-button");
+const score = 0;
+const questionElement = document.querySelector("#question-text");
 
 // array of questions, choices, and answers for quiz
-var questions = [
+const questions = [
     {
         question:'Commonly used data types do not include:',
         choices:['strings', 'booleans', 'alerts', 'numbers'],
@@ -33,53 +31,55 @@ var questions = [
         answer:2
     },
 ];
+const questionIndex = 0;
 
-var questionIndex = 0;
+const timer = 60;
+const penalty = 10;
 
-var timerElement = document.querySelector('.timer-count');
-var timer;
-var timerCount;
-var timeInterval = 0;
-
-// function to start the quiz when the button is clicked
-function startQuiz() {
+// The startGame function is called when the start button is clicked
+function startGame() {
     timerCount = 60;
-    startTimer();
-}
-startButton.addEventListener('click', startQuiz)
-    
-if (timeInterval === 0) {
-        timeInterval = setInterval(function() {
-            timerCount--;
-            timerElement.textContent = 'Timer: ' + timerCount; 
-            
-            if(timerCount <= 0) {
-                clearInterval(timeInterval);
-                endQuiz();
-            }
-        }, 1000);
-} 
+    // Prevents start button from being clicked when round is in progress
+    startButton.disabled = true;
+    startTimer()
+  }
 
-// create function to call questions and answer choices 
-startButton.addEventListener('click', quizQuestions)
+// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
+function startTimer() {
+    timerInterval = setInterval(function() {
+        timerCount--;
+        timerElement.textContent = 'Timer: ' + timerCount; 
 
-function quizQuestions(questionIndex) {
-    container.innerHTML = '';
+        if(timerCount <= 0) {
+            clearInterval(timerInterval);
+            endGame();
+        }
+    }, 1000);
+  }
 
-}
+// event listener for start game button to call start game function
+startButton.addEventListener("click", startGame);
 
-function endQuiz() {
-    if(timerCount === 0) {
-        var timeDone = document.createElement('h1');
-        timeDone.textContent = ('Your time is up! Final Score: ');
-        timeDone.appendChild(timeDone);
-        timeDone.addEventListener(timer === 0);
-
+// new question function generates the next question of the code quiz
+function newQuestion() {
+    questionIndex++;
+    if (questionIndex < questions.length) {
+        questionElement.innerText = questions[questionIndex].question;
+        choices.forEach(choice => {
+            choice.innerText = questions[questionIndex].choices[choice];
+        });
+    } else {
+        timerCount = 0;
+        endGame();
     }
 }
 
-// score calculation and print to page
-
-// inials box and button
-
-// submisstion button that stores initials and score
+// end game function called
+function endGame() {
+    clearInterval(timerInterval);
+    startButton.disabled = false;
+    questionElement.innerText = "";
+    choices.forEach(choice => {
+        choice.innerText = "";
+    });
+}
