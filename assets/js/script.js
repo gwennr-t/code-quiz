@@ -62,28 +62,51 @@ function renderQuestions() {
     var displayQuestion = document.createElement('div');
 
     for (var i = 0; i < questions.length; i++) {
-
         displayQuestion.innerHTML = questions[questionIndex].question;
         var displayChoices = questions[questionIndex].choices;
-        questionElement.appendChild(displayChoices);
-    }
+    }    
+        displayChoices.forEach(function (){
+            var displayChoice = document.createElement('button');
+            displayChoice.textContent = this;
+            displayQuestion.appendChild(displayChoice);
+            displayChoice.addEventListener('click', function() {
+                if (this.textContent === questions[questionIndex].answer) {
+                    questionIndex++;
+                    renderQuestions();
+                } else {
+                    penalty();
+                    renderQuestions();
+                }
+            })
+        })
 }
 
 function checkAnswer() {
-
+    if (answer === questions[questionIndex].answer) {
+        questionIndex++;
+        renderQuestions();
+    } else {
+        penalty();
+        renderQuestions();
+    }
 }
+
 // WHEN I answer a question incorrectly THEN time is subtracted from the clock
 function penalty() {
+    timerCount -= penalty;
+    timerElement.textContent = timerCount;
 
 }
 
 // WHEN all questions are answered or the timer reaches 0 THEN the game is over
 function endQuiz() {
 
+
 }
 
 // WHEN the game is over THEN I can save my initials and score
 function saveInitials() {
+    
 
 }
 
