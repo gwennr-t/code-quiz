@@ -1,10 +1,10 @@
-const timerElement = document.querySelector("#timer-count");
-const startButton = document.querySelector("#start-button");
-const score = 0;
-const questionElement = document.querySelector("#question-text");
+var timerElement = document.querySelector("#timer-count");
+var startButton = document.querySelector("#start-button");
+var questionElement = document.querySelector("#question-text");
+var answersElement = document.querySelector("#answers");
+var submitButton = document.querySelector("#submit");
 
-// array of questions, choices, and answers for quiz
-const questions = [
+var questions = [
     {
         question:'Commonly used data types do not include:',
         choices:['strings', 'booleans', 'alerts', 'numbers'],
@@ -31,55 +31,54 @@ const questions = [
         answer:2
     },
 ];
-const questionIndex = 0;
 
-const timer = 60;
-const penalty = 10;
+var timer;
+var timerCount;
+var penalty = 10;
 
-// The startGame function is called when the start button is clicked
-function startGame() {
+// WHEN I click the start button THEN a timer starts and I am presented with a question
+function startQuiz() {
     timerCount = 60;
-    // Prevents start button from being clicked when round is in progress
-    startButton.disabled = true;
-    startTimer()
-  }
+    questionIndex = 0;
+    renderQuestions();
+    startTimer();
+}
 
-// The setTimer function starts and stops the timer and triggers winGame() and loseGame()
 function startTimer() {
-    timerInterval = setInterval(function() {
+    timer = setInterval(function() {
         timerCount--;
-        timerElement.textContent = 'Timer: ' + timerCount; 
-
-        if(timerCount <= 0) {
-            clearInterval(timerInterval);
-            endGame();
+        timerElement.textContent = timerCount;
+        if (timerCount === 0) {
+            clearInterval(timer);
+            endQuiz();
         }
-    }, 1000);
-  }
-
-// event listener for start game button to call start game function
-startButton.addEventListener("click", startGame);
-
-// new question function generates the next question of the code quiz
-function newQuestion() {
-    questionIndex++;
-    if (questionIndex < questions.length) {
-        questionElement.innerText = questions[questionIndex].question;
-        choices.forEach(choice => {
-            choice.innerText = questions[questionIndex].choices[choice];
-        });
-    } else {
-        timerCount = 0;
-        endGame();
-    }
+    },1000)
 }
 
-// end game function called
-function endGame() {
-    clearInterval(timerInterval);
-    startButton.disabled = false;
-    questionElement.innerText = "";
-    choices.forEach(choice => {
-        choice.innerText = "";
-    });
+// WHEN I answer a question THEN I am presented with another question
+function renderQuestions() {
+
+
 }
+
+function checkAnswer() {
+
+}
+// WHEN I answer a question incorrectly THEN time is subtracted from the clock
+function penalty() {
+
+}
+
+// WHEN all questions are answered or the timer reaches 0 THEN the game is over
+function endQuiz() {
+
+}
+
+// WHEN the game is over THEN I can save my initials and score
+function saveInitials() {
+
+}
+
+startButton.addEventListener("click", startQuiz);
+
+submitButton.addEventListener("click", saveInitials);
