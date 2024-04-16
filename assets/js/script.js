@@ -1,8 +1,8 @@
-var timerElement = document.querySelector("#timer-count");
-var startButton = document.querySelector("#start-button");
-var questionElement = document.querySelector("#question-text");
-var answersElement = document.querySelector("#answers");
-var submitButton = document.querySelector("#submit");
+var timerElement = document.querySelector('#timer-count');
+var startButton = document.querySelector('#start-button');
+var questionElement = document.querySelector('#question-text');
+var answersElement = document.querySelector('#answers');
+var submitButton = document.querySelector('#submit');
 
 var questions = [
     {
@@ -31,7 +31,7 @@ var questions = [
         answer:2
     },
 ];
-
+var questionIndex = 0;
 var timer;
 var timerCount;
 var penalty = 10;
@@ -53,12 +53,20 @@ function startTimer() {
             endQuiz();
         }
     },1000)
+    renderQuestions();
 }
 
 // WHEN I answer a question THEN I am presented with another question
 function renderQuestions() {
+    questionElement.innerHTML = '';
+    var displayQuestion = document.createElement('div');
 
+    for (var i = 0; i < questions.length; i++) {
 
+        displayQuestion.innerHTML = questions[questionIndex].question;
+        var displayChoices = questions[questionIndex].choices;
+        questionElement.appendChild(displayChoices);
+    }
 }
 
 function checkAnswer() {
@@ -79,6 +87,6 @@ function saveInitials() {
 
 }
 
-startButton.addEventListener("click", startQuiz);
+startButton.addEventListener('click', startQuiz);
 
-submitButton.addEventListener("click", saveInitials);
+submitButton.addEventListener('click', saveInitials);

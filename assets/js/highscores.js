@@ -1,6 +1,7 @@
-const highscores = document.querySelector("#highscores");
-const clearButton = document.querySelector("#clear");
-const againButton = document.querySelector("#again");
+var scoreContainer = document.querySelector('#question-text')
+var highscores = document.querySelector('#highscores');
+var clearButton = document.querySelector('#clear');
+var againButton = document.querySelector('#again');
 
 // highscore local storage
 function storeHighscore() {
@@ -12,16 +13,11 @@ function highscores() {
 
 }
 
-// play again button
-function playAgain() {
+clearButton.addEventListener('click', function() {
+    localStorage.clear();
+    location.reload();
+});
 
-}
-
-// exit button
-function clearHighscores() {
-
-}
-
-clearButton.addEventListener("click", playAgain);
-
-againButton.addEventListener("click", exitQuiz);
+againButton.addEventListener('click', function() {
+    window.location.replace('index.html');
+});
