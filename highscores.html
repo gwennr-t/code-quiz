@@ -16,12 +16,18 @@
       crossorigin="anonymous"
     ></script>
     <link rel="stylesheet" href="./assets/css/style.css" />
-
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>High Scores</title>
   </head>
   <body>
-    <div>
+    
+    <header>
+      <div class="the-end text-center m-5">
+        <h5>Well done! Play again to beat the highscore.</h5>
+      </div>
+    </header>
+
+    <div class="card w-75 mx-auto border-info mb-3">
         <div class="card-body" id="quiz-scores">
             <h1 class="card-title text-center">High Scores</h1>
             <ul id="highscores"></ul>
@@ -31,6 +37,7 @@
             </div>
           </div>
     </div>
+
     <script src="./assets/js/highscores.js"></script>
   </body>
 </html>
