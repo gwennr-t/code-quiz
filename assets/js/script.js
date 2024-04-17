@@ -1,47 +1,72 @@
-var timerElement = document.querySelector('#timer-count');
+var questionElement = document.querySelector('#question');
+var answerChoices = document.querySelector('#answer-choices');
+var nextButton = document.querySelector('#next');
+
 var startButton = document.querySelector('#start-button');
-var questionElement = document.querySelector('#question-text');
-var answersElement = document.querySelector('#answers');
+var timerElement = document.querySelector('#timer-count');
+
 var submitButton = document.querySelector('#submit');
 
 var questions = [
     {
         question:'Commonly used data types do not include:',
-        choices:['strings', 'booleans', 'alerts', 'numbers'],
-        answer:2
+        answers: [
+            {text:'strings', correct: false},
+            {text:'booleans', correct: false},
+            {text:'alerts', correct: true},
+            {text:'strings', correct: false}
+        ]
     },
     {
         question:'Arrays in javaScript can be used to store _________.',
-        choices:['numbers and strings', 'other arrays', 'booleans', 'all of the above'],
-        answer:3
+        answers: [
+            {text:'numbers and strings', correct: false},
+            {text:'other arrays', correct: false},
+            {text:'booleans', correct: false},
+            {text:'all of the above', correct: true}
+        ]
     },
     {
         question:'String values must be enclosed within _______ when being assigned to variables.',
-        choices:['commas', 'curly brackets', 'quotes', 'parenthesis'],
-        answer:2
+        answers: [
+            {text:'commas', correct: false},
+            {text:'curly brackets', correct: false},
+            {text:'quotes', correct: true},
+            {text:'parenthesis', correct: false}
+        ]
     },
     {
         question:'A very useful tool used during development and debugging for printing content to the debugger is:',
-        choices:['JavaScript', 'terminal/bash', 'for loops', 'console.log'],
-        answer:0
+        answers: [
+            {text:'JavaScript', correct: false},
+            {text:'terminal/ bash', correct: false},
+            {text:'for loops', correct: false},
+            {text:'console.log', correct: true}
+        ]
     },
     {
         question:'The condition in an if/else statement is enclosed with ________.',
-        choices:['quotes', 'curly brackets', 'parenthesis', 'square brackets'],
-        answer:2
+        answers: [
+            {text:'quotes', correct: false},
+            {text:'curly brackets', correct: true},
+            {text:'parenthesis', correct: false},
+            {text:'square brackets', correct: true}
+        ]
     },
 ];
-var questionIndex = 0;
+
+let questionIndex = 0;
+
 var timer;
 var timerCount;
 var penalty = 10;
 
 // WHEN I click the start button THEN a timer starts and I am presented with a question
 function startQuiz() {
-    timerCount = 60;
     questionIndex = 0;
-    renderQuestions();
+    timerCount = 60;
     startTimer();
+    renderQuestions();
 }
 
 function startTimer() {
@@ -53,42 +78,30 @@ function startTimer() {
             endQuiz();
         }
     },1000)
-    renderQuestions();
 }
 
 // WHEN I answer a question THEN I am presented with another question
 function renderQuestions() {
-    questionElement.innerHTML = '';
-    var displayQuestion = document.createElement('div');
+    let currentQuestion = questions[questionIndex];
+    let questionNumber = questionIndex + 1;
+    questionElement.innerHTML = questionNumber + ". " + currentQuestion.question;
 
-    for (var i = 0; i < questions.length; i++) {
-        displayQuestion.innerHTML = questions[questionIndex].question;
-        var displayChoices = questions[questionIndex].choices;
-    }    
-        displayChoices.forEach(function (){
-            var displayChoice = document.createElement('button');
-            displayChoice.textContent = this;
-            displayQuestion.appendChild(displayChoice);
-            displayChoice.addEventListener('click', function() {
-                if (this.textContent === questions[questionIndex].answer) {
-                    questionIndex++;
-                    renderQuestions();
-                } else {
-                    penalty();
-                    renderQuestions();
-                }
-            })
-        })
+    currentQuestion.answers.forEach(answer => {
+        var button = document.createElement('button');
+        button.innerHTML = answer.text;
+        button.classList.add('btn');
+        answerChoices.appendChild(button);
+
+        if (answer.correct) {
+            button.dataset.correct = answer.correct;
+        }
+
+        button.addEventListener('click', checkAnswer)
+    });
 }
 
 function checkAnswer() {
-    if (answer === questions[questionIndex].answer) {
-        questionIndex++;
-        renderQuestions();
-    } else {
-        penalty();
-        renderQuestions();
-    }
+
 }
 
 // WHEN I answer a question incorrectly THEN time is subtracted from the clock
