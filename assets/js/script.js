@@ -100,11 +100,11 @@ function renderQuestions() {
     });
 }
 
+// WHEN I answer a question incorrectly THEN time is subtracted from the clock
 function checkAnswer() {
 
 }
 
-// WHEN I answer a question incorrectly THEN time is subtracted from the clock
 function penalty() {
     timerCount -= penalty;
     timerElement.textContent = timerCount;
