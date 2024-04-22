@@ -3,6 +3,18 @@ var highscores = document.querySelector('#highscores');
 var clearButton = document.querySelector('#clear');
 var againButton = document.querySelector('#again');
 
+// WHEN the game is over THEN I can save my initials and score
+function saveInitials() {
+    if (timerCount >= 0) {
+        score = timerCount;
+        clearInterval();
+    } else {
+        score = 0
+    }
+}
+submitButton.addEventListener('click', saveInitials);
+
+
 // highscore local storage
 function storeHighscore() {
     var storeScores = localStorage.getItem('highscores');

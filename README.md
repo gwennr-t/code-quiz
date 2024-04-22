@@ -3,7 +3,7 @@
 ## Description
 This web application is an example of a coding assessment. Try to answer the code-related questions within the time limit (60 seconds). If you answer incorrectly you will be penalized by 10 seconds. Don't forget to enter your intials at the end to show off your coding knowledge!
   
-This web application was made using HTML, JavaScript, and Bootstrap.
+This web application was made using HTML, CSS, JavaScript, and Bootstrap.
 
 [Take the quiz!](https://gwennr-t.github.io/code-quiz/)
 

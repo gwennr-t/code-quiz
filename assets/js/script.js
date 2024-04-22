@@ -1,3 +1,7 @@
+var introCard = document.querySelector('.intro');
+var questionCard = document.querySelector('.questions');
+var submitArea = document.querySelector('.submit-area');
+
 var questionElement = document.querySelector('#question');
 var answerChoices = document.querySelector('#answer-choices');
 var nextButton = document.querySelector('#next');
@@ -5,6 +9,7 @@ var nextButton = document.querySelector('#next');
 var startButton = document.querySelector('#start-button');
 var timerElement = document.querySelector('#timer-count');
 
+var input = document.querySelector('#initials');
 var submitButton = document.querySelector('#submit');
 
 var questions = [
@@ -50,7 +55,7 @@ var questions = [
             {text:'quotes', correct: false},
             {text:'curly brackets', correct: true},
             {text:'parenthesis', correct: false},
-            {text:'square brackets', correct: true}
+            {text:'square brackets', correct: false}
         ]
     },
 ];
@@ -59,12 +64,12 @@ let questionIndex = 0;
 
 var timer;
 var timerCount;
-var penalty = 10;
 
 // WHEN I click the start button THEN a timer starts and I am presented with a question
 function startQuiz() {
     questionIndex = 0;
     timerCount = 60;
+    nextButton.innerHTML = 'Next'
     startTimer();
     renderQuestions();
 }
@@ -82,6 +87,8 @@ function startTimer() {
 
 // WHEN I answer a question THEN I am presented with another question
 function renderQuestions() {
+    reset()
+
     let currentQuestion = questions[questionIndex];
     let questionNumber = questionIndex + 1;
     questionElement.innerHTML = questionNumber + ". " + currentQuestion.question;
@@ -98,30 +105,61 @@ function renderQuestions() {
 
         button.addEventListener('click', checkAnswer)
     });
+    questionCard.style.display = 'block';
+    introCard.style.display = 'none';
+
+}
+
+function reset() {
+    nextButton.style.display = 'none';
+    while(answerChoices.firstChild) {
+        answerChoices.removeChild(answerChoices.firstChild);
+    }
 }
 
 // WHEN I answer a question incorrectly THEN time is subtracted from the clock
-function checkAnswer() {
+function checkAnswer(event) {
+    var userAnswer = event.target;
+    var correctAnswer = userAnswer.dataset.correct === 'true';
 
-}
-
-function penalty() {
-    timerCount -= penalty;
-    timerElement.textContent = timerCount;
-
+    if (correctAnswer) {
+        userAnswer.classList.add('correct');
+    } else {
+        userAnswer.classList.add('incorrect');
+    }
+    Array.from(answerChoices.children).forEach(button => {
+        if (button.dataset.correct === 'true') {
+            button.classList.add('correct');
+        } else {
+            button.classList.add('incorrect');
+        }
+    });
+    nextButton.style.display = 'block';
 }
 
 // WHEN all questions are answered or the timer reaches 0 THEN the game is over
 function endQuiz() {
-    
-
+    reset();
+    questionCard.style.display = 'none';
+    submitArea.style.display = 'block';
 }
 
-// WHEN the game is over THEN I can save my initials and score
-function saveInitials() {
+function nextQuestion() {
+    questionIndex++;
 
+    if (questionIndex < questions.length) {
+        renderQuestions();
+    } else {
+        endQuiz();
+    }
 }
+
+nextButton.addEventListener('click', () => {
+    if (questionIndex < questions.length) {
+        nextQuestion();
+    } else {
+        startQuiz();
+    }
+})
 
 startButton.addEventListener('click', startQuiz);
-
-submitButton.addEventListener('click', saveInitials);

@@ -26,12 +26,19 @@
         <h5>Well done! Play again to beat the highscore.</h5>
       </div>
     </header>
-
+    
+    <!-- initials entry -->
     <div class="card w-75 mx-auto border-info mb-3">
         <div class="card-body" id="quiz-scores">
-            <h1 class="card-title text-center">High Scores</h1>
+          <h3 class="card-title text-center">Enter your initials to join the leaderboard!</h3>
+          <div class="text-center m-3">
+              <input class="m-3" id="initials">
+              <!-- Submit Button -->
+              <button type="button" class="btn btn-info" id="submit">Submit</button>
+          </div>
+            <h3 class="card-title text-center">High Scores</h3>
             <ul id="highscores"></ul>
-            <div class="text-center">
+            <div class="text-center m-3">
               <button type="button" class="btn btn-info" id="clear">Clear Highscores</button>
               <button type="button" class="btn btn-info" id="again">Play Again</button>
             </div>

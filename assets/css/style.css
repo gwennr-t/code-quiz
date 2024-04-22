@@ -1,0 +1,25 @@
+body {
+    background: rgba(200, 234, 243, 0.544);
+}
+
+/* question card */
+.questions {
+    display: none;
+}
+
+/* button styling */
+.btn:hover:not([disabled]) {
+    background: lightblue;
+}
+
+.correct {
+    background: rgb(8, 245, 8);
+}
+
+.incorrect {
+    background: rgb(255, 12, 12);
+}
+
+#next {
+    display: none;
+}
